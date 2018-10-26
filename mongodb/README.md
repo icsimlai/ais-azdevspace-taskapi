@@ -1,5 +1,5 @@
 # Install Mongo DB as a Statefulset
-This is the readme document of the Mongo DB Deployment as a Statefulset. A namespace "dev" is created as part of Azure DevOps project creation. Both mongo db and taskapi application will be run in "dev" namespace in AKS cluster. The authorization configuration scripts are given for three namespaces('dev', 'qa' and 'prod'). The demonstration is going to be done using the script ending with name "_dev". This is used for most of the  proof of concepts on AKS and Azure DevOps series.
+This is the detailed readme document of the Mongo DB Deployment as a Statefulset. A namespace "dev" is created as part of Azure Dev Space project creation. Both mongo db and taskapi application will be run in "dev" namespace in AKS cluster. The authorization configuration scripts are given for three namespaces('dev', 'qa' and 'prod'). The demonstration is going to be done using the script ending with name "_dev".
 
 **Pre-requisite:**
 - Azure CLI installed in the machine where the Kubectl Client will run. It could be Laptop, Desktop, Portal. Azure CLI can be installed from here, https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest
@@ -9,8 +9,8 @@ This is the readme document of the Mongo DB Deployment as a Statefulset. A names
 
 **Steps:**
 
-0) Clone the GIT Repo from the "https://github.com/icsimlai/ais-taskapi-aks.git"
-1) Change directory to “..\GitHub\ais-taskapi-aks\mongodb\dbscripts” and execute the shell script to install Mongo DB as shown below:
+0) Clone the GIT Repo from the "https://github.com/icsimlai/ais-azdevspace-tasksapi.git"
+1) Change directory to “..\GitHub\ais-azdevspace-tasksapi\mongodb\dbscripts” and execute the shell script to install Mongo DB as shown below:
 > .\generate.sh
 
 2) Execute the shell script to configure authentication in Mongo DB as shown below:
