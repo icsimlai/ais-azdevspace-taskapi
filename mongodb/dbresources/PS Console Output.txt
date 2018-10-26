@@ -1,0 +1,412 @@
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az login
+Note, we have launched a browser for you to login. For old experience with device code, use "az login --use-device-code"
+You have logged in. Now let us find all the subscriptions to which you have access...
+[
+  {
+    "cloudName": "AzureCloud",
+    "id": "0d4f44f5-e032-49de-ba6c-86dcf4201a31",
+    "isDefault": true,
+    "name": "Microsoft Azure Sponsorship",
+    "state": "Enabled",
+    "tenantId": "f32b97f0-efb8-4bc3-91ee-18a6e5f635c9",
+    "user": {
+      "name": "Itesh.Simlai@appliedis.com",
+      "type": "user"
+    }
+  },
+  {
+    "cloudName": "AzureCloud",
+    "id": "a84ff4a0-e8c8-4dd1-87af-95fe00e48a16",
+    "isDefault": false,
+    "name": "Visual Studio Professional",
+    "state": "Disabled",
+    "tenantId": "d4e22cff-4284-46df-83fd-dd91b067552c",
+    "user": {
+      "name": "Itesh.Simlai@appliedis.com",
+      "type": "user"
+    }
+  },
+  {
+    "cloudName": "AzureCloud",
+    "id": "66cacb0f-a871-4b0b-a161-bd04492f956a",
+    "isDefault": false,
+    "name": "AIS",
+    "state": "Enabled",
+    "tenantId": "bb212f6f-a1c3-4d4f-9320-73ffb9dc6520",
+    "user": {
+      "name": "Itesh.Simlai@appliedis.com",
+      "type": "user"
+    }
+  }
+]
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> azure account set 0d4f44f5-e032-49de-ba6c-86dcf4201a31
+info:    Executing command account set
+info:    Setting subscription to "Microsoft Azure Sponsorship" with id "0d4f44f5-e032-49de-ba6c-86dcf4201a31".
+info:    Changes saved
+info:    account set command OK
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az provider register -n Microsoft.ContainerService
+Registering is still on-going. You can monitor using 'az provider show -n Microsoft.ContainerService'
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az provider register -n Microsoft.Network
+Registering is still on-going. You can monitor using 'az provider show -n Microsoft.Network'
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az provider register -n Microsoft.Storage
+Registering is still on-going. You can monitor using 'az provider show -n Microsoft.Storage'
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az provider register -n Microsoft.Compute
+Registering is still on-going. You can monitor using 'az provider show -n Microsoft.Compute'
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az configure --defaults location=eastus
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az group create --name ais-azdevspace-rg --location eastus
+{
+  "id": "/subscriptions/0d4f44f5-e032-49de-ba6c-86dcf4201a31/resourceGroups/ais-azdevspace-rg",
+  "location": "eastus",
+  "managedBy": null,
+  "name": "ais-azdevspace-rg",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null
+}
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az aks create -g ais-azdevspace-rg -n taskapi-azds --location eastus --kubernetes-version 1.11.3 --node-count 1 --enable-addons http_application_routing
+{
+  "aadProfile": null,
+  "addonProfiles": {
+    "httpApplicationRouting": {
+      "config": {
+        "HTTPApplicationRoutingZoneName": "227b6fe064c14b519e24.eastus.aksapp.io"
+      },
+      "enabled": true
+    }
+  },
+  "agentPoolProfiles": [
+    {
+      "count": 1,
+      "maxPods": 110,
+      "name": "nodepool1",
+      "osDiskSizeGb": 30,
+      "osType": "Linux",
+      "storageProfile": "ManagedDisks",
+      "vmSize": "Standard_DS2_v2",
+      "vnetSubnetId": null
+    }
+  ],
+  "dnsPrefix": "taskapi-az-ais-azdevspace-r-0d4f44",
+  "enableRbac": true,
+  "fqdn": "taskapi-az-ais-azdevspace-r-0d4f44-ec5d02f9.hcp.eastus.azmk8s.io",
+  "id": "/subscriptions/0d4f44f5-e032-49de-ba6c-86dcf4201a31/resourcegroups/ais-azdevspace-rg/providers/Microsoft.ContainerService/managedClusters/taskapi-azds",
+  "kubernetesVersion": "1.11.3",
+  "linuxProfile": {
+    "adminUsername": "azureuser",
+    "ssh": {
+      "publicKeys": [
+        {
+          "keyData": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCnfAK1FAOmLrfc06HrzLyUjPlxjiqoIkn/WClTYyuERGjyueqH0dHvDDm8/cPTTH5V9Yak5XapydQ4PX4bYNd9YJb5v6mRNTCxrM6fDM8GWsb2kpw9ycqgUc3zgVHcZRL5U8cxq2fzDTeCmsfIM+R0M67uPYhIcjzYeIl9pvj3MwrwsEuGLjKzh4s8sgvNuXStrkdOqbW/rstNcl6K9eB6lcyUYZgjSHtmfF+TTk5OVjrW5B3vkkxH72HOyHKZhX9X9yxqdc+B7zoVTTk/ibWvcQTuo2AmW1oREJvmrPGttGXS6E4yEo1Fox0y/wtZzgTP9ClkXOcI+N2jHpvxjY2V"
+        }
+      ]
+    }
+  },
+  "location": "eastus",
+  "name": "taskapi-azds",
+  "networkProfile": {
+    "dnsServiceIp": "10.0.0.10",
+    "dockerBridgeCidr": "172.17.0.1/16",
+    "networkPlugin": "kubenet",
+    "networkPolicy": null,
+    "podCidr": "10.244.0.0/16",
+    "serviceCidr": "10.0.0.0/16"
+  },
+  "nodeResourceGroup": "MC_ais-azdevspace-rg_taskapi-azds_eastus",
+  "provisioningState": "Succeeded",
+  "resourceGroup": "ais-azdevspace-rg",
+  "servicePrincipalProfile": {
+    "clientId": "e0e205ea-b475-4f0d-9712-40050a8dda93",
+    "secret": null
+  },
+  "tags": null,
+  "type": "Microsoft.ContainerService/ManagedClusters"
+}
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az aks show --resource-group ais-azdevspace-rg --name taskapi-azds --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName -o table
+Result
+-------------------------------------
+227b6fe064c14b519e24.eastus.aksapp.io
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az aks get-credentials --resource-group ais-azdevspace-rg --name taskapi-azds
+Merged "taskapi-azds" as current context in C:\Users\itesh\.kube\config
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az aks use-dev-spaces -g ais-azdevspace-rg -n taskapi-azds
+An Azure Dev Spaces Controller will be created that targets resource 'taskapi-azds' in resource group 'ais-azdevspace-rg'. Continue? (y/N): y
+
+Creating and selecting Azure Dev Spaces Controller 'taskapi-azds' in resource group 'ais-azdevspace-rg' that targets resource 'taskapi-azds' in resource group 'ais-azdevspace-rg'...2m 1s
+
+Select a dev space or Kubernetes namespace to use as a dev space.
+ [1] default
+Type a number or a new name: 1
+
+Kubernetes namespace 'default' will be configured as a dev space. This will enable Azure Dev Spaces instrumentation for new workloads in the namespace. Continue? (Y/n): n
+
+Managed Kubernetes cluster 'taskapi-azds' in resource group 'ais-azdevspace-rg' is ready for development in dev space ''. Type `azds prep` to prepare a source directory for use with Azure Dev Spaces and `azds up` to run.
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az aks use-dev-spaces -g ais-azdevspace-rg -n taskapi-azds
+Selecting Azure Dev Spaces Controller 'taskapi-azds' in resource group 'ais-azdevspace-rg' that targets resource 'taskapi-azds' in resource group 'ais-azdevspace-rg'...<1s
+
+Select a dev space or Kubernetes namespace to use as a dev space.
+ [1] default
+Type a number or a new name: dev
+
+Dev space 'dev' does not exist and will be created.
+
+Select a parent dev space or Kubernetes namespace to use as a parent dev space.
+ [0] <none>
+ [1] default
+Type a number: 0
+
+Creating and selecting dev space 'dev'...6s
+
+Managed Kubernetes cluster 'taskapi-azds' in resource group 'ais-azdevspace-rg' is ready for development in dev space 'dev'. Type `azds prep` to prepare a source directory for use with Azure Dev Spaces and `azds up` to run.
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> azds prep
+Current working directory is already prepared.
+Type 'azds up' to run.
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> azds up
+Oops... An unexpected error has occurred. A report of the error will be sent to Microsoft.
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> azds prep --public
+Current working directory is already prepared.
+Type 'azds up' to run.
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az aks get-credentials --resource-group ais-azdevspace-rg --name taskapi-azds
+Merged "taskapi-azds" as current context in C:\Users\itesh\.kube\config
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> az aks browse --resource-group ais-azdevspace-rg --name taskapi-azds
+Merged "taskapi-azds" as current context in C:\Users\itesh\AppData\Local\Temp\tmp0otgf8i9
+Proxy running on http://127.0.0.1:8001/
+Press CTRL+C to close the tunnel...
+Forwarding from 127.0.0.1:8001 -> 9090
+Handling connection for 8001
+Handling connection for 8001
+Handling connection for 8001
+Handling connection for 8001
+Terminate batch job (Y/N)? y
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get pods -o wide --all-namespaces
+NAMESPACE     NAME                                                              READY     STATUS    RESTARTS   AGE       IP            NODE
+azds          azds-image-prepull-bn6vq                                          1/1       Running   0          32m       10.244.0.12   aks-nodepool1-29251737-0
+azds          tiller-deploy-7fbfc78b6d-b85jg                                    1/1       Running   0          32m       10.244.0.11   aks-nodepool1-29251737-0
+dev           aisazdevspace-taskapi-7dcd4f57b-82pxt                             2/2       Running   0          22m       10.244.0.13   aks-nodepool1-29251737-0
+kube-system   addon-http-application-routing-default-http-backend-cd6f8cfq4mc   1/1       Running   0          1h        10.244.0.10   aks-nodepool1-29251737-0
+kube-system   addon-http-application-routing-external-dns-5bc4c9f6b8-5nkmg      1/1       Running   0          1h        10.244.0.4    aks-nodepool1-29251737-0
+kube-system   addon-http-application-routing-nginx-ingress-controller-55p6c4q   1/1       Running   0          1h        10.244.0.3    aks-nodepool1-29251737-0
+kube-system   heapster-5f8d5688-vhshx                                           2/2       Running   0          1h        10.244.0.6    aks-nodepool1-29251737-0
+kube-system   kube-dns-v20-668899dbdc-2gvzr                                     3/3       Running   0          1h        10.244.0.8    aks-nodepool1-29251737-0
+kube-system   kube-dns-v20-668899dbdc-5x2f9                                     3/3       Running   0          1h        10.244.0.9    aks-nodepool1-29251737-0
+kube-system   kube-proxy-gx754                                                  1/1       Running   0          1h        10.240.0.4    aks-nodepool1-29251737-0
+kube-system   kube-svc-redirect-fm9gm                                           2/2       Running   0          1h        10.240.0.4    aks-nodepool1-29251737-0
+kube-system   kubernetes-dashboard-7ff68ff786-vnz9t                             1/1       Running   0          1h        10.244.0.7    aks-nodepool1-29251737-0
+kube-system   metrics-server-76f76c6bfd-shv6l                                   1/1       Running   0          1h        10.244.0.5    aks-nodepool1-29251737-0
+kube-system   tunnelfront-5b7547998f-gm9jd                                      1/1       Running   0          1h        10.244.0.2    aks-nodepool1-29251737-0
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> .\configure_repset_auth_dev.sh abc123
+.\configure_repset_auth_dev.sh : The term '.\configure_repset_auth_dev.sh' is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+At line:1 char:1
++ .\configure_repset_auth_dev.sh abc123
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (.\configure_repset_auth_dev.sh:String) [], CommandNotFoundException
+    + FullyQualifiedErrorId : CommandNotFoundException
+
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get deployment kubernetes-dashboard --namespace=kube-system
+NAME                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+kubernetes-dashboard   1         1         1            1           2h
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl cluster-info
+Kubernetes master is running at https://taskapi-az-ais-azdevspace-r-0d4f44-ec5d02f9.hcp.eastus.azmk8s.io:443
+addon-http-application-routing-default-http-backend is running at https://taskapi-az-ais-azdevspace-r-0d4f44-ec5d02f9.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/addon-http-application-routing-default-http-backend/proxy
+addon-http-application-routing-nginx-ingress is running at http://40.121.1.222:80 http://40.121.1.222:443
+Heapster is running at https://taskapi-az-ais-azdevspace-r-0d4f44-ec5d02f9.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/heapster/proxy
+KubeDNS is running at https://taskapi-az-ais-azdevspace-r-0d4f44-ec5d02f9.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+kubernetes-dashboard is running at https://taskapi-az-ais-azdevspace-r-0d4f44-ec5d02f9.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
+Metrics-server is running at https://taskapi-az-ais-azdevspace-r-0d4f44-ec5d02f9.hcp.eastus.azmk8s.io:443/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get all
+NAME             TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+svc/kubernetes   ClusterIP   10.0.0.1     <none>        443/TCP   2h
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get all -n dev
+NAME                           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/aisazdevspace-taskapi   1         1         1            1           45m
+
+NAME                                 DESIRED   CURRENT   READY     AGE
+rs/aisazdevspace-taskapi-7964f9955   1         1         1         45m
+
+NAME                  DESIRED   CURRENT   AGE
+statefulsets/mongod   2         2         25m
+
+NAME                                       READY     STATUS    RESTARTS   AGE
+po/aisazdevspace-taskapi-7964f9955-hgvs4   2/2       Running   0          45m
+po/mongod-0                                2/2       Running   0          25m
+po/mongod-1                                2/2       Running   0          20m
+
+NAME                        TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)     AGE
+svc/aisazdevspace-taskapi   ClusterIP   10.0.74.243   <none>        80/TCP      45m
+svc/mongodb-service         ClusterIP   None          <none>        27017/TCP   25m
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl exec -it mongod-0 -c mongod-container bash
+Error from server (NotFound): pods "mongod-0" not found
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl -n dev exec -it mongod-0 -c mongod-container bash
+root@mongod-0:/# mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.6.8
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+        http://docs.mongodb.org/
+Questions? Try the support group
+        http://groups.google.com/group/mongodb-user
+> db.getSiblingDB("admin").createUser({
+... ...       user : "main_admin",
+... ...       pwd  : "abc123",
+... ...       roles: [ { role: "root", db: "admin" } ]
+... ...  });
+2018-10-25T10:26:11.360+0000 E QUERY    [thread1] Error: couldn't add user: not master :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+DB.prototype.createUser@src/mongo/shell/db.js:1437:15
+@(shell):1:1
+> db.getSiblingDB("admin").createUser({user : "main_admin", pwd  : "abc123", roles: [ { role: "root", db: "admin" } ]});
+2018-10-25T10:26:58.856+0000 E QUERY    [thread1] Error: couldn't add user: not master :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+DB.prototype.createUser@src/mongo/shell/db.js:1437:15
+@(shell):1:1
+> show dbs
+2018-10-25T10:28:00.222+0000 E QUERY    [thread1] Error: listDatabases failed:{
+        "ok" : 0,
+        "errmsg" : "not authorized on admin to execute command { listDatabases: 1.0, $db: \"admin\" }",
+        "code" : 13,
+        "codeName" : "Unauthorized"
+} :
+_getErrorWithCode@src/mongo/shell/utils.js:25:13
+Mongo.prototype.getDBs@src/mongo/shell/mongo.js:65:1
+shellHelper.show@src/mongo/shell/utils.js:849:19
+shellHelper@src/mongo/shell/utils.js:739:15
+@(shellhelp2):1:1
+> quit
+function quit() {
+    [native code]
+}
+> exit
+bye
+root@mongod-0:/# mongo
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.6.8
+> rs.initiate({_id: "MainRepSet", version: 1, members: [{ _id: 0, host : "mongod-0.mongodb-service.default.svc.cluster.local:27017" }, { _id: 1, host : "mongod-1.mongodb-service.default.svc.cluster.local:27017" }]});
+{
+        "ok" : 0,
+        "errmsg" : "No host described in new configuration 1 for replica set MainRepSet maps to this node",
+        "code" : 93,
+        "codeName" : "InvalidReplicaSetConfig"
+}
+> exit
+bye
+root@mongod-0:/# kubectl exec mongod-0 -c mongod-container -- mongo --eval
+bash: kubectl: command not found
+root@mongod-0:/# exit
+exit
+command terminated with exit code 127
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl -n dev exec mongod-0 -c mongod-container -- mongo --eval
+Error parsing command line: the required argument for option '--eval' is missing
+try 'mongo --help' for more information
+command terminated with exit code 2
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl -n dev exec mongod-0 -c mongod-container -- mongo --eval 'rs.status();'
+MongoDB shell version v3.6.8
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 3.6.8
+{
+        "info" : "run rs.initiate(...) if not yet done for the set",
+        "ok" : 0,
+        "errmsg" : "no replset config has been received",
+        "code" : 94,
+        "codeName" : "NotYetInitialized"
+}
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get deployments --namespace=dev
+NAME                    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+aisazdevspace-taskapi   1         1         1            1           1h
+
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\mongodb\dbscripts> .\delete_service.sh
+statefulset "mongod" deleted
+service "mongodb-service" deleted
+Error from server (NotFound): error when deleting "../dbresources/mongodb-service.yaml": services "mongodb-service" not found
+Error from server (NotFound): error when stopping "../dbresources/mongodb-service.yaml": statefulsets.apps "mongod" not found
+persistentvolumeclaim "mongodb-persistent-storage-claim-mongod-0" deleted
+persistentvolumeclaim "mongodb-persistent-storage-claim-mongod-1" deleted
+secret "shared-bootstrap-data" deleted
+
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\mongodb\dbscripts> .\generate.sh
+secret "shared-bootstrap-data" created
+service "mongodb-service" created
+statefulset "mongod" created
+NAME             TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+svc/kubernetes   ClusterIP   10.0.0.1     <none>        443/TCP   2h
+
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get deployments --namespace=dev
+NAME                    DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+aisazdevspace-taskapi   1         1         1            1           1h
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get all -n dev
+NAME                           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/aisazdevspace-taskapi   1         1         1            1           1h
+
+NAME                                 DESIRED   CURRENT   READY     AGE
+rs/aisazdevspace-taskapi-7964f9955   1         1         1         1h
+
+NAME                                       READY     STATUS    RESTARTS   AGE
+po/aisazdevspace-taskapi-7964f9955-hgvs4   2/2       Running   0          1h
+
+NAME                        TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)   AGE
+svc/aisazdevspace-taskapi   ClusterIP   10.0.74.243   <none>        80/TCP    1h
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get all -n dev
+NAME                           DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deploy/aisazdevspace-taskapi   1         1         1            1           1h
+
+NAME                                 DESIRED   CURRENT   READY     AGE
+rs/aisazdevspace-taskapi-7964f9955   1         1         1         1h
+
+NAME                  DESIRED   CURRENT   AGE
+statefulsets/mongod   2         1         1m
+
+NAME                                       READY     STATUS     RESTARTS   AGE
+po/aisazdevspace-taskapi-7964f9955-hgvs4   2/2       Running    0          1h
+po/mongod-0                                0/2       Init:0/1   0          1m
+
+NAME                        TYPE        CLUSTER-IP    EXTERNAL-IP   PORT(S)     AGE
+svc/aisazdevspace-taskapi   ClusterIP   10.0.74.243   <none>        80/TCP      1h
+svc/mongodb-service         ClusterIP   None          <none>        27017/TCP   1m
+
+PS E:\Users\Itesh\Work\GitHub\dev-spaces\aisazdevspace-taskapi> kubectl get pods -o wide -n dev
+NAME                                    READY     STATUS    RESTARTS   AGE       IP            NODE
+aisazdevspace-taskapi-7964f9955-hgvs4   2/2       Running   0          1h        10.244.0.15   aks-nodepool1-29251737-0
+mongod-0                                2/2       Running   0          3m        10.244.0.18   aks-nodepool1-29251737-0
+mongod-1                                2/2       Running   0          2m        10.244.0.19   aks-nodepool1-29251737-0
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
